@@ -1,0 +1,12 @@
+steps:
+  - name: "gcr.io/cloud-builders/git"
+    secretEnv: ["SECRET_VALUE"]
+    entrypoint: "bash"
+    args:
+      - -c
+      - echo "$$SECRET_VALUE"
+timeout: 1200s
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/MY_PROJECT_SECRET_VALUE/versions/latest
+      env: SECRET_VALUE
