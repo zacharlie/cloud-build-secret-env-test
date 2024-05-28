@@ -1,10 +1,12 @@
 steps:
-  - name: "gcr.io/cloud-builders/git"
+  - name: "gcr.io/cloud-builders/docker"
     secretEnv: ["SECRET_VALUE"]
     entrypoint: "bash"
     args:
-      - -c
-      - echo "$$SECRET_VALUE"
+      [
+        "-c",
+        'docker build --build-arg "SECRET_VALUE=$$SECRET_VALUE" -t gcr.io/$PROJECT_ID/cloud-build-secret-env-test:$TAG_NAME .',
+      ]
 timeout: 1200s
 availableSecrets:
   secretManager:
